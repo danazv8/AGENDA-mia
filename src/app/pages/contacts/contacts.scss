@@ -1,0 +1,35 @@
+.contacts-page {
+    min-height: 100vh;
+    padding: 40px;
+    background-color: #e59ed6;
+    Font-family: 'Roboto', sans-serif;
+}
+
+.contacts-header{
+    text-align: center;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+.contacts-list {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.contact-card{
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 15px;
+}
+
+.contact-card h2{
+    margin-top: 0;
+    color: #333;
+}
+
+.contact-card p{
+    margin-bottom: 8px;
+    color: #555;
+}
