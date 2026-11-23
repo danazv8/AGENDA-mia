@@ -1,0 +1,12 @@
+<main class="contact-detail">
+    @if (contacto) {
+        <h1>{{ contacto.nombre }} {{ contacto.apellido }}</h1>
+        <p>Teléfono: {{ contacto.telefono }}</p>
+        <p>Email: {{ contacto.email }}</p>
+
+        <a routerLink="/contacts">Volver a la lista de contactos</a>
+
+    } @else {
+        <p>Contacto no encontrado.</p>
+    }
+</main>

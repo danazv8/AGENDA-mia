@@ -4,13 +4,56 @@
         <p>Bienvenido a tu agenda de contactos</p>
     </header>
 
+    <section class="contact-form">
+        <h2>Agregar contacto</h2>
+        <form (ngSubmit)="contactoEnEdicion === null ? agregarNuevoContacto() : guardarEdicion()">
+            <div>
+                <label for="nombre">Nombre</label>
+                <input type="text" id="nombre" name="nombre" [(ngModel)]="nuevoNombre" required>
+            </div>
+            <div>
+                <label for="apellido">Apellido</label>
+                <input type="text" id="apellido" name="apellido" [(ngModel)]="nuevoApellido" required>
+            </div>
+            <div>
+                <label for="telefono">Teléfono</label>
+                <input type="text" id="telefono" name="telefono" [(ngModel)]="nuevoTelefono" required>
+            </div>
+            <div>
+                <label for="email">Correo electrónico</label>
+                <input type="email" id="email" name="email" [(ngModel)]="nuevoEmail" required>
+            </div>
+            <button type="submit">
+                {{ contactoEnEdicion === null ? 'Agregar contacto' : 'Guardar cambios' }}
+                
+            </button>
+            @if (contactoEnEdicion !== null) {
+                    <button type="button" (click)="cancelarEdicion()">Cancelar</button>
+                }
+        </form>
+    </section>
+
     <section class="contacts-list">
-        <article class="contact-card">
-            <h2>Nombre: Benito</h2>
-            <p>Teléfono: 321</p>
-            <p>Correo electrónico: benito@gmail.com</p>
-        </article>
+        @if (contactos.length > 0) {
+            @for (contacto of contactos; track contacto.id) {
+                <article class="contact-card">
+                    <h2>
+                        <a [routerLink]="['/contacts', contacto.id]">  
+                            {{ contacto.nombre }} {{ contacto.apellido }}
+                        </a>
+                    </h2>
+                    <p>Teléfono: {{ contacto.telefono }}</p>
+                    <p>Correo electrónico: {{ contacto.email }}</p>
+                    <button type="button" (click)="iniciarEdicion(contacto)">Editar </button>
+                    <button (click)="eliminarContacto(contacto.id)">Eliminar</button>
+                </article>
+            }
+            } @else {
+                <p class="empty-message">No hay contactos disponibles. Agrega algunos para empezar.</p>     
+            }
+        
     </section>
 </main>
+
 
 
