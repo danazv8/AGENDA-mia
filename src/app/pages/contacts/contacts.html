@@ -2,28 +2,66 @@
     <header class="contacts-header">
         <h1>Agenda de contactos</h1>
         <p>Bienvenido a tu agenda de contactos</p>
+        <button (click)="cerrarSesion()">Cerrar sesión</button>
     </header>
 
     <section class="contact-form">
         <h2>Agregar contacto</h2>
-        <form (ngSubmit)="contactoEnEdicion === null ? agregarNuevoContacto() : guardarEdicion()">
+        <form #contactForm="ngForm" (ngSubmit)="contactoEnEdicion === null ? agregarNuevoContacto() : guardarEdicion()">
             <div>
                 <label for="nombre">Nombre</label>
-                <input type="text" id="nombre" name="nombre" [(ngModel)]="nuevoNombre" required>
+                <input type="text" 
+                id="nombre" 
+                name="nombre" [(ngModel)]="nuevoNombre" 
+                required
+                minlength="2"
+                
+                #nombreControl="ngModel">
+                @if (nombreControl.hasError('minlength') && nombreControl.touched) {
+                    <small>El nombre debe tener al menos 2 caracteres.</small>
+                }
+                @if (nombreControl.hasError('required') && nombreControl.touched) {
+                    <small>El nombre es obligatorio.</small>
+                } 
             </div>
             <div>
                 <label for="apellido">Apellido</label>
-                <input type="text" id="apellido" name="apellido" [(ngModel)]="nuevoApellido" required>
+                <input type="text" 
+                id="apellido" 
+                name="apellido" 
+                [(ngModel)]="nuevoApellido" 
+                required
+                minlength="2"
+                #apellidoControl="ngModel">
+                @if (apellidoControl.hasError('minlength') && apellidoControl.touched) {
+                    <small>El apellido debe tener al menos 2 caracteres.</small>
+                }
+                @if (apellidoControl.hasError('required') && apellidoControl.touched) {
+                    <small>El apellido es obligatorio.</small>
+                }
             </div>
             <div>
                 <label for="telefono">Teléfono</label>
-                <input type="text" id="telefono" name="telefono" [(ngModel)]="nuevoTelefono" required>
+                <input type="text" id="telefono" name="telefono" [(ngModel)]="nuevoTelefono" required pattern="[0-9]+" #telefonoControl="ngModel"
+                >
+                @if (telefonoControl.hasError('required') && telefonoControl.touched) {
+                    <small>El teléfono es obligatorio.</small>
+                }
+                @if (telefonoControl.hasError('pattern') && telefonoControl.touched) {
+                    <small>El teléfono solo puede contener números.</small>
+                }
             </div>
             <div>
                 <label for="email">Correo electrónico</label>
-                <input type="email" id="email" name="email" [(ngModel)]="nuevoEmail" required>
+                <input type="email" id="email" name="email" [(ngModel)]="nuevoEmail" required email #emailControl="ngModel">
+                @if (emailControl.hasError('required') && emailControl.touched) {
+                    <small>El correo electrónico es obligatorio.</small>
+                }
+                @if (emailControl.hasError('email') && emailControl.touched) {
+                    <small>El correo electrónico no es válido.</small>
+                }
             </div>
-            <button type="submit">
+            <button type="submit" [disabled]="contactForm.invalid" >
                 {{ contactoEnEdicion === null ? 'Agregar contacto' : 'Guardar cambios' }}
                 
             </button>

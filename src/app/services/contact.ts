@@ -24,14 +24,26 @@ export class ContactService  {
         }
     ];
 
+    constructor() { 
+        const contactosGuardados = localStorage.getItem('contactos');
+        if (contactosGuardados) {
+            this.contactos = JSON.parse(contactosGuardados);
+        }
+    }
+    guardarEnLocalStorage(): void {
+        localStorage.setItem('contactos', JSON.stringify(this.contactos));
+    }
+
     agregarContacto(contacto: Contact): void {
         this.contactos.push(contacto);
+        this.guardarEnLocalStorage();
     }
 
     eliminarContacto(id: number): void {
         const indice = this.contactos.findIndex(contacto => contacto.id === id);
         if (indice !== -1) {
             this.contactos.splice(indice, 1);
+            this.guardarEnLocalStorage();
         }
     }
 
@@ -39,6 +51,7 @@ export class ContactService  {
         const indice = this.contactos.findIndex(contacto => contacto.id === id);
         if (indice !== -1) {
             this.contactos[indice] = contactoActualizado;
+            this.guardarEnLocalStorage();
         }
     }
 }

@@ -3,6 +3,8 @@ import {Contact} from './contact.interface';
 import { ContactService } from '../../services/contact';
 import {FormsModule} from '@angular/forms';
 import {RouterLink} from '@angular/router';
+import { Auth } from '../../services/auth';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -18,7 +20,7 @@ export class Contacts {
   nuevoTelefono: string = '';
   nuevoEmail: string = '';
   contactoEnEdicion: number | null = null;
-  constructor(private contactService: ContactService) {
+  constructor(private contactService: ContactService, private authService: Auth, private router: Router) {
     
     this.contactos = this.contactService.contactos;
   }
@@ -86,4 +88,8 @@ export class Contacts {
   }
 
 
+  cerrarSesion(): void {
+    this.authService.logout();
+    this.router.navigate(['/login']);
+  }
 }
