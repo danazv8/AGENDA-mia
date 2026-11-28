@@ -77,13 +77,15 @@
                 <article class="contact-card">
                     <h2>
                         <a [routerLink]="['/contacts', contacto.id]">  
-                            {{ contacto.nombre }} {{ contacto.apellido }}
+                            {{ contacto.firstName }} {{ contacto.lastName }}
                         </a>
                     </h2>
-                    <p>Teléfono: {{ contacto.telefono }}</p>
+                    <p>Teléfono: {{ contacto.number }}</p>
                     <p>Correo electrónico: {{ contacto.email }}</p>
                     <button type="button" (click)="iniciarEdicion(contacto)">Editar </button>
                     <button (click)="eliminarContacto(contacto.id)">Eliminar</button>
+                    
+
                 </article>
             }
             } @else {

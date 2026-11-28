@@ -7,6 +7,11 @@ import {authGuard} from './guards/auth-guard';
 
 export const routes: Routes = [
     {
+        path: '',
+        redirectTo: 'login',
+        pathMatch: 'full'
+    },
+    {
         path: 'login',
         component: Login
     },
@@ -20,5 +25,6 @@ export const routes: Routes = [
         component: ContactDetail,
         canActivate: [authGuard]
     }
+    
 ];
 
